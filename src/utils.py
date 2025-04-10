@@ -1,5 +1,6 @@
 import argparse
 import logging
+from datetime import timedelta
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,7 @@ class Utils:
         return parser
 
     @staticmethod
-    def get_logger(path:str) -> None:
+    def set_logger(path:str) -> None:
 
         formatter = logging.Formatter('[%(asctime)s] %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
@@ -49,3 +50,8 @@ class Utils:
             if not p.is_dir():
                 raise NotADirectoryError
         return p
+
+    @staticmethod
+    def time_parser(time: str) -> int:
+        h, m, s = map(int, time.split(":"))
+        return int(timedelta(hours=h, minutes=m, seconds=s).total_seconds())

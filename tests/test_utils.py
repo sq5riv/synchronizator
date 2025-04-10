@@ -1,5 +1,7 @@
 import sys
 
+import pytest
+
 from src.utils import Utils
 
 def test_default_args(monkeypatch):
@@ -22,4 +24,14 @@ def test_custom_args(monkeypatch):
     assert args.source_folder is '/path/to/folder'
     assert args.replica_folder is '/path/to/folder'
     assert args.log_file is '/path/to/file'
+
+def test_set_logger():
+    Utils.set_logger('test')
+
+def test_check_path():
+    Utils.check_path('./tests/test_utils.py', False)
+
+def test_check_path_incorect():
+    with pytest.raises(NotADirectoryError):
+        Utils.check_path('./tests/test_utils.py', True)
 
