@@ -12,13 +12,13 @@ class Utils:
     @staticmethod
     def argument_parser() -> argparse.ArgumentParser:
         parser = argparse.ArgumentParser(description="Folder synchronization")
-        parser.add_argument('--synchronization-interval', type=str, default='00:00:01',
+        parser.add_argument('-si', '--synchronization-interval', type=str, required=True,
                             help='Synchronization interval in HH:MM:SS format')
-        parser.add_argument('--source-folder', type=str, default='None',
+        parser.add_argument('-sf', '--source-folder', type=str, required=True,
                             help='Source folder path for one-way synchronization')
-        parser.add_argument('--replica-folder', type=str, default='None',
+        parser.add_argument('-rf', '--replica-folder', type=str, required=True,
                             help='Replica folder path for one-way synchronization')
-        parser.add_argument('--log-file', type=str, default='None', help='Log file path')
+        parser.add_argument('-lf', '--log-file', type=str, default='None', help='Log file path')
 
         return parser
 
@@ -53,5 +53,8 @@ class Utils:
 
     @staticmethod
     def time_parser(time: str) -> int:
-        h, m, s = map(int, time.split(":"))
+        try:
+            h, m, s = map(int, time.split(":"))
+        except ValueError:
+            raise argparse.ArgumentTypeError("Invalid time format, --synchronization-interval should be HH:MM:SS format")
         return int(timedelta(hours=h, minutes=m, seconds=s).total_seconds())

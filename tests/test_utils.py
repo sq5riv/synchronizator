@@ -1,15 +1,7 @@
 import sys
-
 import pytest
 
 from src.utils import Utils
-
-def test_default_args(monkeypatch):
-    args = Utils.argument_parser().parse_args([])
-    assert args.synchronization_interval == '00:00:01'
-    assert args.source_folder is 'None'
-    assert args.replica_folder is 'None'
-    assert args.log_file is 'None'
 
 
 def test_custom_args(monkeypatch):

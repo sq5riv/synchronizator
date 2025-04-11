@@ -1,7 +1,4 @@
-import filecmp
 import os
-from pathlib import Path
-
 import pytest
 
 from src.synchronizator import Synchronizator
